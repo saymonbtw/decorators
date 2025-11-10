@@ -1,20 +1,12 @@
 from functools import wraps
 
 
-def make_html(tag: str):
+def repeat(times: int):
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            value = func(*args, **kwargs)
-            return f"<{tag}>{value}</{tag}>"
+            for _ in range(times):
+                value = func(*args, **kwargs)
+            return value
         return wrapper
     return decorator
-
-
-@make_html('i')
-@make_html('del')
-def get_text(text):
-    return text
-
-
-print(get_text(text='decorators are so cool!'))
